@@ -84,11 +84,14 @@ body {
   border-radius: 8px;
   transition: var(--transition);
   white-space: nowrap;
+  display: flex; align-items: center; gap: 8px;
 }
+.nav-link i { font-size: 14px; opacity: 0.8; }
 .nav-link:hover, .nav-link.active {
   color: var(--primary);
   background: rgba(245,158,11,0.1);
 }
+.nav-link:hover i, .nav-link.active i { color: var(--primary); opacity: 1; }
 
 .header-cta { display: flex; align-items: center; gap: 10px; }
 .header-phones { display: flex; align-items: center; gap: 8px; }
@@ -186,10 +189,10 @@ body {
   box-shadow: 0 6px 24px rgba(245,158,11,0.35);
 }
 .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(245,158,11,0.5); }
-.btn-zalo {
-  background: rgba(0,104,255,0.15);
-  border: 1px solid rgba(0,104,255,0.4);
-  color: #60a5fa;
+.btn-secondary {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--white);
   padding: 14px 28px;
   border-radius: 10px;
   text-decoration: none;
@@ -198,7 +201,14 @@ body {
   display: inline-flex; align-items: center; gap: 8px;
   transition: var(--transition);
 }
-.btn-zalo:hover { background: rgba(0,104,255,0.25); transform: translateY(-3px); }
+.btn-secondary:hover { background: rgba(255,255,255,0.1); transform: translateY(-3px); border-color: var(--primary); }
+.btn-zalo-hero {
+  background: var(--zalo);
+  color: #fff;
+  border: none;
+  box-shadow: 0 6px 24px rgba(0,104,255,0.35);
+}
+.btn-zalo-hero:hover { background: #0056cc; box-shadow: 0 10px 32px rgba(0,104,255,0.5); }
 
 .hero-stats {
   display: flex; gap: 32px; flex-wrap: wrap;
@@ -602,12 +612,71 @@ body {
   .why-image { order: -1; }
 }
 @media (max-width: 768px) {
-  .nav { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15,23,42,0.98); backdrop-filter: blur(20px); flex-direction: column; justify-content: center; align-items: center; gap: 12px; z-index: 999; }
-  .nav.open { display: flex; }
-  .nav-link { font-size: 20px; padding: 14px 32px; }
+  .nav {
+    display: flex;
+    position: fixed;
+    top: 0;
+    right: -300px;
+    width: 300px;
+    height: 100vh;
+    background: rgba(15, 23, 42, 0.98);
+    backdrop-filter: blur(20px);
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 90px 24px;
+    gap: 10px;
+    z-index: 1000;
+    transition: all 0.4s cubic-bezier(.4, 0, .2, 1);
+    box-shadow: -10px 0 40px rgba(0,0,0,0.8);
+    border-left: 1px solid rgba(245, 158, 11, 0.2);
+  }
+  .nav.open { right: 0; }
+  .nav-link {
+    width: 100%;
+    font-size: 17px;
+    padding: 14px 20px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    border: 1px solid transparent;
+  }
+  .nav-link:hover, .nav-link.active {
+    background: rgba(245, 158, 11, 0.1);
+    border-color: rgba(245, 158, 11, 0.2);
+  }
+  
+  .nav-header-mobile {
+    display: flex;
+    width: 100%;
+    padding-bottom: 20px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    align-items: center;
+    gap: 12px;
+  }
+  .nav-header-mobile i { font-size: 32px; color: var(--primary); }
+  .nav-header-mobile span { font-size: 20px; font-weight: 900; color: var(--white); }
+
+  .nav-link i { font-size: 18px; margin-right: 12px; }
+
+  .nav-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+  .nav-overlay.show { opacity: 1; pointer-events: all; }
+
   .hamburger { display: flex; z-index: 1001; position: relative; }
-  .btn-call span { display: none; }
-  .btn-call { padding: 8px 14px; }
+  .header-phones { display: flex; flex-direction: column; gap: 4px; }
+  .btn-call { padding: 6px 10px; font-size: 11px; }
+  .btn-call i { font-size: 10px; }
+  
   .hero-stats { gap: 24px; }
   .services-grid { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: 1fr; gap: 32px; }
@@ -703,7 +772,7 @@ body {
 .popup-footer .btn-zalo { width: 100%; justify-content: center; padding: 16px; }
 
 @media (max-width: 600px) {
-  .header-phones { display: none; }
+  .header-phones { display: flex; }
   .header-inner { justify-content: space-between; }
   .popup-content { border-radius: 0; height: 100%; max-width: 100%; display: flex; flex-direction: column; justify-content: center; }
   .popup-body { overflow-y: auto; }

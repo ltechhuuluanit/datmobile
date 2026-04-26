@@ -9,38 +9,38 @@ const pinStandard = [
   ["X", 440], ["XR", 424], ["XS", 456], ["XS Max", 459],
   ["11", 438], ["11 Pro", 482], ["11 Pro Max", 500],
   ["SE2", 165], ["12 Mini", 431], ["12 / 12 Pro", 438],
-  ["12 Pro Max", 494], ["13", 443], ["13 Pro", 494],
-  ["13 Pro Max", 525], ["14", 494], ["14 Plus", 519],
-  ["14 Pro", 560], ["14 Pro Max", 588],
-  ["15", 494], ["15 Plus", 269], ["15 Pro", 315], ["15 Pro Max", 359]
+  ["12 Pro Max", 644], ["13", 593], ["13 Pro", 644],
+  ["13 Pro Max", 675], ["14", 644], ["14 Plus", 669],
+  ["14 Pro", 710], ["14 Pro Max", 738],
+  ["15", 644], ["15 Plus", 669], ["15 Pro", 715], ["15 Pro Max", 759]
 ];
 
 const pinCao = [
-  ["11 Pro Max", 550], ["12 / 12 Pro", 520], ["12 Pro Max", 570],
-  ["13 Pro Max", 600], ["14 Pro Max", 645]
+  ["11 Pro Max", 750], ["12 / 12 Pro", 720], ["12 Pro Max", 820],
+  ["13 Pro Max", 900], ["14 Pro Max", 945]
 ];
 
 const pinChanDoan = [
-  ["12 / 12 Pro", 530], ["12 Pro Max", 600],
-  ["13", 540], ["13 Pro", 605], ["13 Pro Max", 630],
-  ["14 Pro", 625], ["14 Pro Max", 645]
+  ["12 / 12 Pro", 720], ["12 Pro Max", 820],
+  ["13", 690], ["13 Pro", 755], ["13 Pro Max", 900],
+  ["14 Pro", 775], ["14 Pro Max", 945]
 ];
 
 const manDat = [
   ["X Incell GX", 623], ["XS Incell GX", 624], ["XS Max Incell GX", 656],
   ["11 GX (dời IC)", 627], ["11 Pro Incell HL", 653], ["11 Pro Max", 670],
-  ["12 / 12 Pro Incell GX", 682], ["12 Pro Max Incell HL", 693],
-  ["13 Pro Incell GX", 725], ["13 Pro Max Incell HL", 809],
-  ["15 Plus Incell GX", 750], ["15 Pro Incell GX", 750],
-  ["16 Incell GX", 760], ["6S Plus HD+", 539],
+  ["12 / 12 Pro Incell GX", 682], ["12 Pro Max Incell HL", 893],
+  ["13 Pro Incell GX", 925], ["13 Pro Max Incell HL", 1009],
+  ["15 Plus Incell GX", 950], ["15 Pro Incell GX", 950],
+  ["16 Incell GX", 960], ["6S Plus HD+", 539],
   ["7 Plus HD+", 539], ["8 Plus HD+", 539]
 ];
 
 const manTiger = [
   ["XS Max HD+", 650], ["11 Pro HD+", 655], ["11 Pro Max HD+", 675],
-  ["12 / 12 Pro HD+", 680], ["13 HD+", 705], ["13 Pro HD+", null],
-  ["13 Pro Max HD+", 730], ["14", null], ["14 Pro HD+ 120Hz", 780],
-  ["14 Pro Max HD+ 120Hz", 820], ["14 Plus HD+", 770]
+  ["12 / 12 Pro HD+", 680], ["13 HD+", 905], ["13 Pro HD+", null],
+  ["13 Pro Max HD+", 930], ["14", null], ["14 Pro HD+ 120Hz", 980],
+  ["14 Pro Max HD+ 120Hz", 1020], ["14 Plus HD+", 970]
 ];
 
 // ----- RENDER TABLE -----
@@ -106,15 +106,26 @@ function initBackToTop() {
 function initMobileNav() {
   const hamburger = document.getElementById('hamburger');
   const nav = document.getElementById('nav');
-  hamburger.addEventListener('click', () => {
+  const overlay = document.getElementById('navOverlay');
+  if (!hamburger || !nav || !overlay) return;
+
+  const toggleMenu = () => {
     nav.classList.toggle('open');
+    overlay.classList.toggle('show');
     const icon = hamburger.querySelector('i');
     icon.className = nav.classList.contains('open') ? 'fas fa-times' : 'fas fa-bars';
-  });
+    document.body.style.overflow = nav.classList.contains('open') ? 'hidden' : '';
+  };
+
+  hamburger.addEventListener('click', toggleMenu);
+  overlay.addEventListener('click', toggleMenu);
+
   nav.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', () => {
       nav.classList.remove('open');
+      overlay.classList.remove('show');
       hamburger.querySelector('i').className = 'fas fa-bars';
+      document.body.style.overflow = '';
     });
   });
 }

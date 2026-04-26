@@ -4,43 +4,43 @@
 
 // ----- DATA -----
 const pinStandard = [
-  ["6G", 133], ["6S", 133], ["6P", 156], ["6SP", 156],
-  ["7G", 140], ["7P", 159], ["8G", 140], ["8P", 159],
-  ["X", 190], ["XR", 174], ["XS", 206], ["XS Max", 209],
-  ["11", 188], ["11 Pro", 232], ["11 Pro Max", 250],
-  ["SE2", 165], ["12 Mini", 181], ["12 / 12 Pro", 188],
-  ["12 Pro Max", 244], ["13", 193], ["13 Pro", 244],
-  ["13 Pro Max", 275], ["14", 244], ["14 Plus", 269],
-  ["14 Pro", 310], ["14 Pro Max", 338],
-  ["15", 244], ["15 Plus", 269], ["15 Pro", 315], ["15 Pro Max", 359]
+  ["6G", 383], ["6S", 383], ["6P", 406], ["6SP", 406],
+  ["7G", 390], ["7P", 409], ["8G", 390], ["8P", 409],
+  ["X", 440], ["XR", 424], ["XS", 456], ["XS Max", 459],
+  ["11", 438], ["11 Pro", 482], ["11 Pro Max", 500],
+  ["SE2", 165], ["12 Mini", 431], ["12 / 12 Pro", 438],
+  ["12 Pro Max", 494], ["13", 443], ["13 Pro", 494],
+  ["13 Pro Max", 525], ["14", 494], ["14 Plus", 519],
+  ["14 Pro", 560], ["14 Pro Max", 588],
+  ["15", 494], ["15 Plus", 269], ["15 Pro", 315], ["15 Pro Max", 359]
 ];
 
 const pinCao = [
-  ["11 Pro Max", 300], ["12 / 12 Pro", 270], ["12 Pro Max", 320],
-  ["13 Pro Max", 350], ["14 Pro Max", 395]
+  ["11 Pro Max", 550], ["12 / 12 Pro", 520], ["12 Pro Max", 570],
+  ["13 Pro Max", 600], ["14 Pro Max", 645]
 ];
 
 const pinChanDoan = [
-  ["12 / 12 Pro", 280], ["12 Pro Max", 350],
-  ["13", 290], ["13 Pro", 355], ["13 Pro Max", 380],
-  ["14 Pro", 375], ["14 Pro Max", 395]
+  ["12 / 12 Pro", 530], ["12 Pro Max", 600],
+  ["13", 540], ["13 Pro", 605], ["13 Pro Max", 630],
+  ["14 Pro", 625], ["14 Pro Max", 645]
 ];
 
 const manDat = [
-  ["X Incell GX", 323], ["XS Incell GX", 324], ["XS Max Incell GX", 356],
-  ["11 GX (dời IC)", 327], ["11 Pro Incell HL", 353], ["11 Pro Max", 370],
-  ["12 / 12 Pro Incell GX", 382], ["12 Pro Max Incell HL", 393],
-  ["13 Pro Incell GX", 425], ["13 Pro Max Incell HL", 509],
-  ["15 Plus Incell GX", 450], ["15 Pro Incell GX", 450],
-  ["16 Incell GX", 460], ["6S Plus HD+", 239],
-  ["7 Plus HD+", 239], ["8 Plus HD+", 239]
+  ["X Incell GX", 623], ["XS Incell GX", 624], ["XS Max Incell GX", 656],
+  ["11 GX (dời IC)", 627], ["11 Pro Incell HL", 653], ["11 Pro Max", 670],
+  ["12 / 12 Pro Incell GX", 682], ["12 Pro Max Incell HL", 693],
+  ["13 Pro Incell GX", 725], ["13 Pro Max Incell HL", 809],
+  ["15 Plus Incell GX", 750], ["15 Pro Incell GX", 750],
+  ["16 Incell GX", 760], ["6S Plus HD+", 539],
+  ["7 Plus HD+", 539], ["8 Plus HD+", 539]
 ];
 
 const manTiger = [
-  ["XS Max HD+", 350], ["11 Pro HD+", 355], ["11 Pro Max HD+", 375],
-  ["12 / 12 Pro HD+", 380], ["13 HD+", 405], ["13 Pro HD+", null],
-  ["13 Pro Max HD+", 430], ["14", null], ["14 Pro HD+ 120Hz", 480],
-  ["14 Pro Max HD+ 120Hz", 520], ["14 Plus HD+", 470]
+  ["XS Max HD+", 650], ["11 Pro HD+", 655], ["11 Pro Max HD+", 675],
+  ["12 / 12 Pro HD+", 680], ["13 HD+", 705], ["13 Pro HD+", null],
+  ["13 Pro Max HD+", 730], ["14", null], ["14 Pro HD+ 120Hz", 780],
+  ["14 Pro Max HD+ 120Hz", 820], ["14 Plus HD+", 770]
 ];
 
 // ----- RENDER TABLE -----
@@ -50,7 +50,7 @@ function renderTable(bodyId, data) {
   tbody.innerHTML = data.map(([name, price]) => `
     <tr>
       <td><strong style="color:var(--white)">${name}</strong></td>
-      <td>${price ? `<span class="price-badge">${price}K</span>` : '<span style="color:var(--text-muted)">Liên hệ</span>'}</td>
+      <td>${price ? `<span class="price-badge">${price}K ( Đã bao gồm công )</span>` : '<span style="color:var(--text-muted)">Liên hệ</span>'}</td>
       <td><a href="tel:0933424434" class="contact-quick-btn"><i class="fas fa-phone-alt"></i> Hỏi giá</a></td>
     </tr>
   `).join('');
@@ -187,6 +187,23 @@ function initCounters() {
   stats.forEach(s => observer.observe(s));
 }
 
+// ----- POPUP -----
+function initPopup() {
+  const popup = document.getElementById('welcomePopup');
+  const closeBtn = document.getElementById('closePopup');
+  if (!popup || !closeBtn) return;
+
+  // Show after 1s
+  setTimeout(() => {
+    popup.classList.add('show');
+  }, 1000);
+
+  closeBtn.onclick = () => popup.classList.remove('show');
+  popup.onclick = (e) => {
+    if (e.target === popup) popup.classList.remove('show');
+  };
+}
+
 // ----- INIT -----
 document.addEventListener('DOMContentLoaded', () => {
   initTables();
@@ -196,5 +213,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initNavHighlight();
   initReveal();
   initCounters();
+  initPopup();
   console.log('🍎 Đạt Mobile Website – Ready!');
 });
